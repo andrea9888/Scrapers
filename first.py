@@ -41,12 +41,12 @@ def get_content(content_name, link1, a):
     if a!="":
         if content_name=="Stambena Površina":
             return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')[:-len(a)].split("<font")[0]
+
         else: 
             return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')[:-len(a)]
     else:
         return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')
-    if content_name=="Stambena Površina":
-        return 
+    
 i=0
 while 1:
     try:
@@ -77,13 +77,19 @@ while 1:
             link1 = html1.find_all('div', id= 'listing_body')
             b = "<br/><"
             list_of_fields = getTagContent(str(link1), "strong")
-            '''
-            if "Lokacija" in list_of_fileds and "Opis" in list_of_fileds and "Oglasio " in list_of_fileds and "Oglas Broj" in list_of_fileds and "Oglas Broj" in list_of_fileds:
-                print("dasd")
-            else:
-                print("nee") 
-            print(list_of_fields, "strong"))
-            '''
+            
+            required=["Lokacija", "Opis", "Oglasio"]
+            phone=['Mobitel', "Telefon", "ME", "Mobilni"]
+            phone_exsists=0
+            if  set(required).issubset(list_of_fields):
+                for elem in phone: 
+                    if elem in list_of_fields:
+                            phone_exsists=1
+                if phone_exsists==1:
+                    print("Ad has all required fields from this section")
+                else:
+                    continue
+            
             unwanted=["Zadnja Promjena", "Oglas Broj", "Tags", "Oglasio", "Mobitel", "Telefon", "ME", "Više detalja na"]
             list_of_fields=[elem for elem in list_of_fields if elem not in unwanted]
             for elem in list_of_fields:
