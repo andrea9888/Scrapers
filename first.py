@@ -74,10 +74,22 @@ while 1:
             if help == 2:
                 print("Ad already exsists!")
                 continue
+            link1 = html1.find('div', id= 'rea_blueimp')
+            list_of_images=[]
+            help_list=str(link1).split("\n")
+            for elem in help_list:
+                if "href" in elem:
+                    position=elem.split("href=")[1].index("rel")
+                    list_of_images.append(elem.split("href=")[1][1:position-2])
+            
+            diction.update({"slike" : str(list_of_images)})  
+            print("11111111")
+            if diction["slike"]=="[]":
+                continue 
+
             link1 = html1.find_all('div', id= 'listing_body')
             b = "<br/><"
             list_of_fields = getTagContent(str(link1), "strong")
-            
             required=["Lokacija", "Opis", "Oglasio"]
             phone=['Mobitel', "Telefon", "ME", "Mobilni"]
             phone_exsists=0
@@ -89,19 +101,19 @@ while 1:
                     print("Ad has all required fields from this section")
                 else:
                     continue
+                    
             
-            unwanted=["Zadnja Promjena", "Oglas Broj", "Tags", "Oglasio", "Mobitel", "Telefon", "ME", "Više detalja na"]
+            unwanted=["Zadnja Promjena", "Oglas Broj", "Tags", "Oglasio", "Mobitel", "Telefon", "ME", "Više detalja na","Registarski broj"]
             list_of_fields=[elem for elem in list_of_fields if elem not in unwanted]
             for elem in list_of_fields:
                 diction.update({elem : get_content(elem,link1, b)})
-            '''
-            link1 = html1.find('div', id= 'rea_blueimp')
-            list_of_images=[]
             
-            for item in str(link1):
-                list_of_images.append(item.split("href=")[2].split("rel")[0])
-            print(list_of_images)
-            '''
+             
+
+
+           
+            
+           
             
 
 
