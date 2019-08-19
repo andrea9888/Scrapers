@@ -94,9 +94,14 @@ while 1:
             list_of_fields=[elem for elem in list_of_fields if elem not in unwanted]
             for elem in list_of_fields:
                 diction.update({elem : get_content(elem,link1, b)})
-                
-
-
+            '''
+            link1 = html1.find('div', id= 'rea_blueimp')
+            list_of_images=[]
+            
+            for item in str(link1):
+                list_of_images.append(item.split("href=")[2].split("rel")[0])
+            print(list_of_images)
+            '''
             
 
 
