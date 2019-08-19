@@ -39,9 +39,14 @@ def get_content(content_name, link1, a):
     #print(str(link1).split("strong>"))
     last_change=str(link1).split("strong>").index(content_name+'</')
     if a!="":
-        return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')[:-len(a)]
+        if content_name=="Stambena Površina":
+            return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')[:-len(a)].split("<font")[0]
+        else: 
+            return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')[:-len(a)]
     else:
         return str(link1).split("strong>")[last_change+1].split('\n')[0].strip(': ')
+    if content_name=="Stambena Površina":
+        return 
 i=0
 while 1:
     try:
@@ -79,14 +84,11 @@ while 1:
                 print("nee") 
             print(list_of_fields, "strong"))
             '''
+            unwanted=["Zadnja Promjena", "Oglas Broj", "Tags", "Oglasio", "Mobitel", "Telefon", "ME", "Više detalja na"]
+            list_of_fields=[elem for elem in list_of_fields if elem not in unwanted]
             for elem in list_of_fields:
-                diction.update({elem.lower() : get_content(elem,link1, b)})
-                '''
-                diction.update({"područje" : get_content("Područje",link1, b)})
-                diction.update({"lokacija" : get_content("Lokacija",link1, b)})
-                diction.update({"broj spavaćih soba" : get_content("Spavaćih Soba",link1, b)})
-                diction.update({"broj kupatila" : get_content("Kupatila",link1, b)})
-                '''
+                diction.update({elem : get_content(elem,link1, b)})
+                
 
 
             
@@ -105,7 +107,7 @@ while 1:
                 
 
         i=i+1
-    except Exception as e:
-            print(str(e))
+    except :
+            print("Kraj")
             
             break
