@@ -73,7 +73,7 @@ def get_content(content_name, link1, a):
     if content_name in ["Novogradnja", "Klima Uređaj"]:
         return True
     if a!="":
-        if content_name=="Stambena Površina":
+        if content_name=="Stambena Površina" or content_name=="Zemljište":
             return int(html_list[last_change+1].split('\n')[0].strip(': ')[:-len(a)].split("<font")[0].strip("m"))
         if content_name == "Spavaćih Soba" or content_name == "Kupatila" or content_name == "Od Mora (m)" or content_name == "Parking Mjesta" :
             if content_name == "Parking Mjesta":
@@ -82,8 +82,6 @@ def get_content(content_name, link1, a):
             return int(html_list[last_change+1].split('\n')[0].strip(': ')[:-len(a)])
         elif content_name == "Cijena":
             return float(html_list[last_change+1].split('\n')[0].strip(': ')[:-len(a)].strip("€"))
-        elif content_name == "Zemljište":
-            return html_list[last_change+1].split('\n')[0].strip(': ')[:-len(a)]
         else: 
             return html_list[last_change+1].split('\n')[0].strip(': ')[:-len(a)]
     else:
